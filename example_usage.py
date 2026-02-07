@@ -2,6 +2,10 @@
 総合健康リスクスコアシステムの使用例
 
 このスクリプトは、リスクスコアシステムの基本的な使い方を示します。
+
+⚠️ AI Generated Code
+このコードは Claude Opus 4.6 (Anthropic社のAI) によって生成されました。
+教育・デモンストレーション目的のみです。実際の医療現場での使用は禁止されています。
 """
 
 from src.models.composite_risk import CompositeRiskModel

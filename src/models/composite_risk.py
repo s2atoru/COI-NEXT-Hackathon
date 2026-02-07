@@ -2,6 +2,10 @@
 総合健康リスクスコアモデル
 
 各ドメインのリスクスコアを統合し、総合評価を行う
+
+⚠️ AI Generated Code by Claude Opus 4.6 (Anthropic)
+このコードは教育・デモンストレーション目的のみです。
+実際の医療診断や治療判断には使用しないでください。
 """
 
 import numpy as np
