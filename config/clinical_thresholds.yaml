@@ -1,0 +1,238 @@
+# 臨床閾値設定ファイル
+# 各種ガイドラインに準拠した基準値を定義
+
+cardiovascular:
+  ldl_cholesterol:
+    optimal: [0, 100]
+    near_optimal: [100, 129]
+    borderline: [130, 159]
+    high: [160, 189]
+    very_high: [190, 999]
+    unit: "mg/dL"
+    guideline: "ACC/AHA 2019"
+    variable: "LBDLDL"
+
+  hdl_cholesterol:
+    low_male: [0, 40]
+    low_female: [0, 50]
+    normal: [40, 60]
+    protective: [60, 999]
+    unit: "mg/dL"
+    guideline: "NCEP ATP III"
+    variable: "LBDHDD"
+
+  total_cholesterol:
+    desirable: [0, 200]
+    borderline: [200, 239]
+    high: [240, 999]
+    unit: "mg/dL"
+    guideline: "NCEP ATP III"
+    variable: "LBXTC"
+
+  triglycerides:
+    normal: [0, 150]
+    borderline: [150, 199]
+    high: [200, 499]
+    very_high: [500, 999]
+    unit: "mg/dL"
+    guideline: "NCEP ATP III"
+    variable: "LBXTR"
+
+  tc_hdl_ratio:
+    optimal: [0, 3.5]
+    acceptable: [3.5, 5.0]
+    high_risk: [5.0, 999]
+    unit: "ratio"
+    guideline: "Framingham Study"
+
+metabolic:
+  fasting_glucose:
+    normal: [0, 100]
+    prediabetes: [100, 125]
+    diabetes: [126, 999]
+    unit: "mg/dL"
+    guideline: "ADA 2023"
+    variable: "LBXGLU"
+
+  hba1c:
+    normal: [0, 5.7]
+    prediabetes: [5.7, 6.4]
+    diabetes: [6.5, 20]
+    unit: "%"
+    guideline: "ADA 2023"
+    variable: "LBXGH"
+
+  insulin:
+    normal: [2, 25]
+    insulin_resistance: [25, 999]
+    unit: "μU/mL"
+    guideline: "Clinical Practice"
+    variable: "LBXIN"
+
+  homa_ir:
+    normal: [0, 2.5]
+    insulin_resistance: [2.5, 999]
+    unit: "index"
+    guideline: "Clinical Research"
+
+hepatic:
+  ast:
+    normal_male: [0, 40]
+    normal_female: [0, 32]
+    elevated: [40, 999]
+    unit: "U/L"
+    guideline: "AASLD 2018"
+    variable: "LBXSASSI"
+
+  alt:
+    normal_male: [0, 41]
+    normal_female: [0, 33]
+    elevated: [41, 999]
+    unit: "U/L"
+    guideline: "AASLD 2018"
+    variable: "LBXSGTSI"
+
+  albumin:
+    low: [0, 3.5]
+    normal: [3.5, 5.5]
+    unit: "g/dL"
+    guideline: "Clinical Practice"
+    variable: "LBXSAL"
+
+  total_bilirubin:
+    normal: [0, 1.2]
+    elevated: [1.2, 999]
+    unit: "mg/dL"
+    guideline: "Clinical Practice"
+    variable: "LBXSTB"
+
+  fib4_index:
+    low_risk: [0, 1.45]
+    intermediate: [1.45, 3.25]
+    high_risk: [3.25, 999]
+    unit: "index"
+    guideline: "AASLD 2018"
+
+renal:
+  creatinine:
+    normal_male: [0.7, 1.3]
+    normal_female: [0.6, 1.1]
+    unit: "mg/dL"
+    guideline: "KDIGO 2012"
+    variable: "LBXSCR"
+
+  egfr:
+    g1_normal: [90, 999]
+    g2_mild: [60, 89]
+    g3a_mild_moderate: [45, 59]
+    g3b_moderate_severe: [30, 44]
+    g4_severe: [15, 29]
+    g5_kidney_failure: [0, 14]
+    unit: "mL/min/1.73m²"
+    guideline: "KDIGO 2012"
+
+  urine_albumin:
+    normal: [0, 30]
+    microalbuminuria: [30, 300]
+    macroalbuminuria: [300, 9999]
+    unit: "mg/g creatinine"
+    guideline: "KDIGO 2012"
+    variable: "URXUMA"
+
+  acr:
+    a1_normal: [0, 30]
+    a2_microalbuminuria: [30, 300]
+    a3_macroalbuminuria: [300, 9999]
+    unit: "mg/g"
+    guideline: "KDIGO 2012"
+
+hematologic:
+  hemoglobin:
+    anemia_male: [0, 13]
+    normal_male: [13, 17]
+    anemia_female: [0, 12]
+    normal_female: [12, 16]
+    unit: "g/dL"
+    guideline: "WHO"
+    variable: "LBXHGB"
+
+  wbc:
+    low: [0, 4.0]
+    normal: [4.0, 11.0]
+    high: [11.0, 999]
+    unit: "10³/μL"
+    guideline: "Clinical Practice"
+    variable: "LBXWBCSI"
+
+  platelet:
+    thrombocytopenia: [0, 150]
+    normal: [150, 450]
+    thrombocytosis: [450, 999]
+    unit: "10³/μL"
+    guideline: "Clinical Practice"
+    variable: "LBXPLTSI"
+
+  mcv:
+    microcytic: [0, 80]
+    normal: [80, 100]
+    macrocytic: [100, 999]
+    unit: "fL"
+    guideline: "Clinical Practice"
+    variable: "LBXMCVSI"
+
+# リスクスコアの重み設定
+risk_weights:
+  cardiovascular: 0.30
+  metabolic: 0.25
+  renal: 0.20
+  hepatic: 0.15
+  hematologic: 0.10
+
+# 年齢補正係数
+age_adjustments:
+  very_elderly: # 75歳以上
+    threshold: 75
+    multiplier: 1.2
+  elderly: # 65-74歳
+    threshold: 65
+    multiplier: 1.1
+  middle_age: # 45-64歳
+    threshold: 45
+    multiplier: 1.0
+  young_adult: # 18-44歳
+    threshold: 18
+    multiplier: 0.8
+
+# 複数ドメイン高リスクペナルティ
+multi_domain_penalty:
+  threshold_score: 70
+  min_domains: 2
+  multiplier: 1.15
+
+# リスクレベル分類
+risk_levels:
+  optimal:
+    range: [0, 20]
+    label: "最適"
+    severity: "OPTIMAL"
+    color: "#4CAF50"
+  low:
+    range: [20, 40]
+    label: "低リスク"
+    severity: "LOW"
+    color: "#8BC34A"
+  moderate:
+    range: [40, 60]
+    label: "中リスク"
+    severity: "MODERATE"
+    color: "#FFC107"
+  high:
+    range: [60, 80]
+    label: "高リスク"
+    severity: "HIGH"
+    color: "#FF9800"
+  critical:
+    range: [80, 100]
+    label: "要精査"
+    severity: "CRITICAL"
+    color: "#F44336"

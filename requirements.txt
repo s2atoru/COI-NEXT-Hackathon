@@ -1,0 +1,35 @@
+# データ処理
+pandas==2.1.4
+numpy==1.26.2
+scipy==1.11.4
+
+# 統計解析
+statsmodels==0.14.1
+pingouin==0.5.4
+
+# 欠損値処理
+missingno==0.5.2
+
+# 可視化
+matplotlib==3.8.2
+seaborn==0.13.0
+plotly==5.18.0
+
+# レポート生成
+reportlab==4.0.7
+fpdf2==2.7.6
+
+# 設定管理
+pyyaml==6.0.1
+
+# ユーティリティ
+tqdm==4.66.1
+loguru==0.7.2
+
+# テスト
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# Jupyter
+jupyter==1.0.0
+ipykernel==6.27.1
