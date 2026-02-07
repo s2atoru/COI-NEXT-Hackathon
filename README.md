@@ -1,5 +1,10 @@
 # 医療機関向け総合健康リスクスコアシステム
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Tests](https://img.shields.io/badge/tests-18%2F18%20passing-brightgreen.svg)](tests/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 NHANES 2017-2018データを活用した、医療機関・健診センター向けの総合健康リスク評価システムです。
 
 ## 概要
