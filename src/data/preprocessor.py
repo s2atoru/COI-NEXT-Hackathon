@@ -179,9 +179,15 @@ class NHANESPreprocessor:
             )
 
         if 'RIAGENDR' in df.columns:
-            # 性別を文字列に変換（1=Male, 2=Female）
-            gender_map = {1: 'Male', 2: 'Female'}
-            df['gender_label'] = df['RIAGENDR'].map(gender_map)
+            # 性別ラベルを作成（既に文字列の場合はそのまま、数値の場合は変換）
+            # NHANES data may have either string ('Male'/'Female') or numeric (1/2) format
+            if df['RIAGENDR'].dtype in ['object', 'category']:
+                # Already in string format
+                df['gender_label'] = df['RIAGENDR'].astype(str)
+            else:
+                # Numeric format: 1=Male, 2=Female
+                gender_map = {1: 'Male', 2: 'Female'}
+                df['gender_label'] = df['RIAGENDR'].map(gender_map)
 
         return df
 

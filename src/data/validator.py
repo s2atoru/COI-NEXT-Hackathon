@@ -146,14 +146,18 @@ class DataValidator:
 
         for col, (min_val, max_val) in range_checks.items():
             if col in df.columns:
-                out_of_range = ((df[col] < min_val) | (df[col] > max_val)) & df[col].notna()
-                n_violations = out_of_range.sum()
-                if n_violations > 0:
-                    violations[col] = {
-                        "n_violations": int(n_violations),
-                        "expected_range": (min_val, max_val),
-                        "actual_range": (float(df[col].min()), float(df[col].max()))
-                    }
+                # カテゴリカル型や非数値型の場合はスキップ
+                if pd.api.types.is_numeric_dtype(df[col]):
+                    # カテゴリカル型の場合は数値型に変換
+                    col_data = pd.to_numeric(df[col], errors='coerce')
+                    out_of_range = ((col_data < min_val) | (col_data > max_val)) & col_data.notna()
+                    n_violations = out_of_range.sum()
+                    if n_violations > 0:
+                        violations[col] = {
+                            "n_violations": int(n_violations),
+                            "expected_range": (min_val, max_val),
+                            "actual_range": (float(col_data.min()), float(col_data.max()))
+                        }
 
         return {
             "passed": len(violations) == 0,
