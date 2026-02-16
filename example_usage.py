@@ -9,6 +9,10 @@
 """
 
 from src.models.composite_risk import CompositeRiskModel
+from src.models.metabolic_risk import MetabolicRiskModel
+from src.models.renal_risk import RenalRiskModel
+from src.models.hepatic_risk import HepaticRiskModel
+from src.models.hematologic_risk import HematologicRiskModel
 
 
 def example_healthy_patient():
@@ -142,23 +146,96 @@ def example_batch_processing():
 
     model = CompositeRiskModel()
 
-    print("\n個別にスコア計算:")
-    for idx, row in df.iterrows():
-        result = model.calculate_composite_score(row)
-        print(f"  患者{row['SEQN']}: スコア {result['composite_score']:.1f}点 ({result['risk_label']})")
+    print("\n一括スコア計算 (batch_calculate):")
+    df_with_scores = model.batch_calculate(df)
+    print(f"  処理完了: {len(df_with_scores)}名")
+
+    print("\n各患者の結果:")
+    for idx, row in df_with_scores.iterrows():
+        print(f"  患者{row['SEQN']}: スコア {row['composite_score']:.1f}点 ({row['risk_label']})")
+
+
+def example_clinical_categories():
+    """臨床カテゴリ生成の例（Notebook 02の機能）"""
+    print("\n" + "=" * 60)
+    print("例4: 臨床カテゴリの生成")
+    print("=" * 60)
+
+    # 糖尿病リスクのある患者
+    patient = {
+        'SEQN': 12345,
+        'RIAGENDR': 1,
+        'RIDAGEYR': 55,
+        'LBXGLU': 115,     # 血糖: 空腹時境界域
+        'LBXGH': 6.0,      # HbA1c: 前糖尿病域
+        'LBXIN': 15,
+        'HOMA_IR': 4.2,
+        'LBXSCR': 1.2,
+        'eGFR': 68,        # eGFR: G2（軽度低下）
+        'ACR': 35,         # ACR: 微量アルブミン尿
+        'LBXSASSI': 45,
+        'LBXSGTSI': 52,
+        'LBXPLTSI': 220,
+        'FIB4': 1.8,
+        'LBXHGB': 13.5,
+        'LBXMCVSI': 88,
+    }
+
+    # 各ドメインモデルによる臨床評価
+    metabolic_model = MetabolicRiskModel()
+    renal_model = RenalRiskModel()
+    hepatic_model = HepaticRiskModel()
+    hematologic_model = HematologicRiskModel()
+
+    print("\n臨床カテゴリ評価:")
+
+    # 糖尿病ステータス
+    diabetes_status = metabolic_model.assess_diabetes_status(patient)
+    print(f"  糖尿病ステータス: {diabetes_status}")
+
+    # CKDステージ
+    ckd_result = renal_model.assess_ckd_stage(patient)
+    print(f"  CKD GFRステージ: {ckd_result['gfr_stage']}")
+    print(f"  CKD アルブミン尿ステージ: {ckd_result['albuminuria_stage']}")
+    print(f"  CKD 統合ステージ: {ckd_result['ckd_stage']}")
+    print(f"  KDIGO リスク分類: {ckd_result['risk_category']}")
+
+    # 肝線維化リスク
+    fibrosis_risk = hepatic_model.assess_fibrosis_risk(patient)
+    print(f"  肝線維化リスク: {fibrosis_risk}")
+
+    # 貧血タイプ
+    anemia_type = hematologic_model.classify_anemia_type(patient)
+    print(f"  貧血タイプ: {anemia_type}")
+
+    print("\n解釈:")
+    print("  - 前糖尿病状態が検出されました")
+    print("  - 軽度の腎機能低下とアルブミン尿を認めます")
+    print("  - 早期介入により進行を防げる可能性があります")
 
 
 if __name__ == "__main__":
     print("\n総合健康リスクスコアシステム - 使用例\n")
+    print("このスクリプトは以下の機能を実演します:")
+    print("  1. 基本的なリスクスコア計算")
+    print("  2. 複数患者の一括処理")
+    print("  3. 臨床カテゴリの自動生成")
+    print()
 
     try:
         example_healthy_patient()
         example_high_risk_patient()
         example_batch_processing()
+        example_clinical_categories()
 
         print("\n" + "=" * 60)
         print("すべての例が正常に実行されました")
         print("=" * 60)
+        print("\n次のステップ:")
+        print("  - notebooks/01_data_exploration.ipynb でデータ探索")
+        print("  - notebooks/02_feature_engineering.ipynb で特徴量生成")
+        print("  - notebooks/03_risk_model_development.ipynb でモデル開発")
+        print("  - notebooks/04_validation_analysis.ipynb で妥当性検証")
 
     except Exception as e:
         print(f"\nエラーが発生しました: {e}")
