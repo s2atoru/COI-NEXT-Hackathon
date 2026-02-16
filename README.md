@@ -124,8 +124,9 @@ health-risk-assessment/
 │   └── processed/              # 前処理済みデータ
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
+│   ├── 02_feature_engineering.ipynb
 │   ├── 03_risk_model_development.ipynb
-│   └── ...
+│   └── 04_validation_analysis.ipynb
 ├── src/
 │   ├── data/                   # データ処理
 │   │   ├── loader.py
@@ -178,20 +179,42 @@ NHANESデータCSVファイルを `data/raw/` ディレクトリに配置しま�
 jupyter notebook
 ```
 
-### 3. データ探索と前処理
+### 3. Notebookの実行（推奨順序）
+
+#### 3.1 データ探索と前処理
 `notebooks/01_data_exploration.ipynb` を開いて実行:
 - データの読み込み
 - 基本統計量の確認
 - 欠損値分析
 - データの前処理
-- 前処理済みデータの保存
+- 前処理済みデータの保存（`nhanes_processed.csv`）
 
-### 4. リスクスコアの計算
+#### 3.2 特徴量エンジニアリング
+`notebooks/02_feature_engineering.ipynb` を開いて実行:
+- 派生変数の分布分析（TC_HDL比、eGFR、HOMA-IR、FIB4等）
+- 臨床カテゴリの生成（糖尿病、CKD、肝線維化、貧血ステータス）
+- ドメイン内・ドメイン間相関分析
+- 性別・年齢グループ別分析
+- データ完全性評価
+- 強化データセットの保存（`nhanes_enhanced.csv`）
+
+#### 3.3 リスクモデル開発
 `notebooks/03_risk_model_development.ipynb` を開いて実行:
 - 各ドメインモデルのテスト
 - 総合リスクスコアの計算
 - スコア分布の可視化
 - 高リスク患者の抽出
+- 既知グループ妥当性の基本評価
+
+#### 3.4 妥当性検証と感度分析
+`notebooks/04_validation_analysis.ipynb` を開いて実行:
+- 統計的妥当性検証（ANOVA、Kruskal-Wallis）
+- ROC曲線分析（循環性警告付き）
+- 感度分析（ウェイト摂動、年齢調整、ペナルティ）
+- スコアキャリブレーション評価
+- 欠損データ影響分析
+- 内部整合性評価（Cronbach's α）
+- Plotlyインタラクティブ可視化
 
 ### 5. プログラムでの使用
 

@@ -59,12 +59,15 @@ pytest tests/test_risk_models.py -v
 ## ステップ4: Jupyter Notebookで探索（オプション）
 
 ```bash
+cd notebooks
 jupyter notebook
 ```
 
-ブラウザで以下を開く:
-1. `notebooks/01_data_exploration.ipynb` - データ探索
-2. `notebooks/03_risk_model_development.ipynb` - モデル開発
+ブラウザで以下を順番に開く:
+1. `01_data_exploration.ipynb` - データ探索・前処理
+2. `02_feature_engineering.ipynb` - 特徴量エンジニアリング・臨床分類 ✨
+3. `03_risk_model_development.ipynb` - モデル開発・テスト
+4. `04_validation_analysis.ipynb` - 妥当性検証・感度分析 ✨
 
 ## よく使う機能
 
@@ -152,9 +155,11 @@ python --version
 ## 次のステップ
 
 1. **データ探索**: `notebooks/01_data_exploration.ipynb` を実行
-2. **モデル開発**: `notebooks/03_risk_model_development.ipynb` を実行
-3. **カスタマイズ**: `config/clinical_thresholds.yaml` で閾値を調整
-4. **詳細ドキュメント**: `README.md` と `IMPLEMENTATION_SUMMARY.md` を参照
+2. **特徴量生成**: `notebooks/02_feature_engineering.ipynb` を実行 ✨
+3. **モデル開発**: `notebooks/03_risk_model_development.ipynb` を実行
+4. **妥当性検証**: `notebooks/04_validation_analysis.ipynb` を実行 ✨
+5. **カスタマイズ**: `config/clinical_thresholds.yaml` で閾値を調整
+6. **詳細ドキュメント**: `README.md` と `IMPLEMENTATION_SUMMARY.md` を参照
 
 ## サポート
 
